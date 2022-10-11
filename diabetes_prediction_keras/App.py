@@ -81,7 +81,7 @@ class App:
         else:
             print('Patient is diabetic')
 
-    def get_prediction(self, data):
+    def get_prediction_probs(self):
 
         return self.model.predict(self.x_test)
 
@@ -93,9 +93,6 @@ class App:
 
         return self.df
 
-    def get_x_test(self):
-        return self.x_test
-
     def get_confusion_matrix(self, y_prediction):
         # y_test_predict = self.get_prediction(y_prediction)
         # y_test_predict = self.model.predict(self.x_test)
@@ -104,4 +101,10 @@ class App:
         c_matrix = confusion_matrix(self.y_test, classes_x)
 
         return c_matrix
+
+    def get_x_test(self):
+        return self.x_test
+
+    def get_y_test(self):
+        return self.y_test
 

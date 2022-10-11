@@ -23,3 +23,15 @@ class Visualizator:
         self.sns.histplot(x=x, data=diabetes_dataset, color='red')
         plt.show()
 
+    def roc_curve(self, frp, tpr):
+        plt.plot(frp, tpr)
+
+        # diagonal line
+        plt.plot([0, 1], [0, 1], '--', color='black')
+
+        plt.title('ROC Curve')
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.show()
+
+

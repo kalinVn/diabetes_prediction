@@ -1,3 +1,5 @@
+from sklearn.metrics import roc_curve
+
 from diabetes_prediction_custom.App import App as AppCustom
 from diabetes_prediction_keras.App import App as AppKeras
 from diabetes_prediction_keras.Visualizator import Visualizator
@@ -34,7 +36,12 @@ def diabetes_prediction_keras():
 
     c_matrix = app.get_confusion_matrix(patient_data)
     # visualizator.show_confusion_matrix(c_matrix)
-    visualizator.show_hist_plot_dataset(df, x='Glucose')
+    # visualizator.show_hist_plot_dataset(df, x='Glucose')
+
+    y_test_prediction_probs = app.get_prediction_probs()
+    y_test = app.get_y_test()
+    frp, trp, _ = roc_curve(y_test, y_test_prediction_probs)
+    visualizator.roc_curve(frp, trp)
 
 # diabetes_prediction_custom()
 
