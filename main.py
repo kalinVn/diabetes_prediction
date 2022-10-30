@@ -1,8 +1,7 @@
 from sklearn.metrics import roc_curve
-
+from visualization import hist, show_roc_curve, confusion_matrix, dense_plot
 from diabetes_prediction_custom.App import App as AppCustom
 from diabetes_prediction_keras.App import App as AppKeras
-from diabetes_prediction_keras.Visualizator import Visualizator
 import pandas as pd
 
 CSV_FILE_PATH = 'dataset/diabetes.csv'
@@ -19,9 +18,8 @@ def diabetes_prediction_custom():
     app.predict(input_data)
 
 
-def diabetes_prediction_keras():
+def diabetes_prediction_keras(visulize=False):
     df = pd.read_csv('dataset/diabetes.csv')
-    visualizator = Visualizator(df)
     app = AppKeras(df)
     app.replace_zero_column()
     app.fill_null_columns()
@@ -35,17 +33,26 @@ def diabetes_prediction_keras():
     app.predict(patient_data)
 
     c_matrix = app.get_confusion_matrix(patient_data)
-    # visualizator.show_confusion_matrix(c_matrix)
-    # visualizator.show_hist_plot_dataset(df, x='Glucose')
-
+    # confusion_matrix(c_matrix)
+    # hist(df)
+    # dense_plot(df)
     y_test_prediction_probs = app.get_prediction_probs()
     y_test = app.get_y_test()
     frp, trp, _ = roc_curve(y_test, y_test_prediction_probs)
-    visualizator.roc_curve(frp, trp)
+
+    if visulize:
+        print('test')
+        confusion_matrix(c_matrix)
+        hist(df)
+        dense_plot(df)
+        show_roc_curve(frp, trp)
+def visualize():
+    df = pd.read_csv('dataset/diabetes.csv')
+
 
 # diabetes_prediction_custom()
 
 
-diabetes_prediction_keras()
+diabetes_prediction_keras(True)
 
 
