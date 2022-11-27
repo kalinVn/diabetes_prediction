@@ -1,5 +1,5 @@
 from sklearn.metrics import roc_curve
-from visualization import hist, show_roc_curve, confusion_matrix, dense_plot
+from visualization import hist, show_roc_curve, confusion_matrix, dense_plot, hist_plot, scatter_plot, line_plot
 from diabetes_prediction_custom.App import App as AppCustom
 from diabetes_prediction_keras.App import App as AppKeras
 import pandas as pd
@@ -10,12 +10,17 @@ input_data = [9, 102, 76, 37, 0, 32.9, 0.665, 46]
 
 
 def diabetes_prediction_custom():
+    df = pd.read_csv('dataset/diabetes.csv')
     app = AppCustom(CSV_FILE_PATH)
     app.standardize_data()
     app.build()
     app.test_accuracy_score()
-
     app.predict(input_data)
+
+    # params = dict(x='Pregnancies', data=df, binwidth=1)
+    # hist_plot(df)
+    # scatter_plot(df)
+    # line_plot(df)
 
 
 def diabetes_prediction_keras(visulize=False):
@@ -41,7 +46,6 @@ def diabetes_prediction_keras(visulize=False):
     frp, trp, _ = roc_curve(y_test, y_test_prediction_probs)
 
     if visulize:
-        print('test')
         confusion_matrix(c_matrix)
         hist(df)
         dense_plot(df)

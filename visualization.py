@@ -11,6 +11,25 @@ def hist(df):
     plt.tight_layout()
     plt.show()
 
+def hist_plot(df, params=None):
+    # sns.histplot(x='Pregnancies', data=df, color='red')
+    # sns.histplot(x='Pregnancies', data=df, kde=True)
+    # sns.histplot(x='Pregnancies', data=df, bins=20)
+    # sns.histplot(x='Pregnancies', data=df, stat='count')
+    if not params:
+        params = dict(x='Pregnancies', data=df, color='red')
+        # params = dict(x='Pregnancies', data=df, stat='frequency')
+        # params = dict(x='Pregnancies', data=df, stat='percent')
+        # params = dict(x='Pregnancies', data=df, stat='density')
+        # params = dict(x='Pregnancies', data=df, cbar=True)
+        # params = dict(x='Pregnancies', data=df, hue='Pregnancies')
+        # params = dict(x='Pregnancies', data=df, hue='Pregnancies', element='step')
+        # params = dict(x='Pregnancies', y='Glucose', data=df, cbar=True)
+        # params = dict(x='Pregnancies', y='Glucose', data=df, hue='Pregnancies')
+        # params = dict(x='Pregnancies', y='Glucose', data=df, hue='Pregnancies')
+
+    sns.histplot(**params)
+    plt.show()
 
 def show_roc_curve(frp, tpr):
     plt.plot(frp, tpr)
@@ -49,4 +68,31 @@ def dense_plot(df):
     plt.subplot(3, 3, 9).set_visible(False)
     plt.tight_layout()
     plt.show()
+
+def scatter_plot(df, params=None):
+    sns.set_style('dark')
+
+    if not params:
+        # params = dict(x='BloodPressure', y='Glucose', data=df, s=100)
+        # params = dict(x='BloodPressure', y='Glucose', data=df, s=100, palette=('purple', 'red'))
+        # params = dict(x='BloodPressure', y='Glucose', data=df, s=100, hue='Outcome')
+        params = dict(x='BloodPressure', y='Glucose', data=df,  hue='Outcome')
+        # params = dict(x='BloodPressure', y='Glucose', style='Outcome', data=df,  hue='SkinThickness')
+        # params = dict(x='BloodPressure', y='Glucose', data=df, s=100, style='Outcome')
+
+    sns.scatterplot(**params)
+    plt.show()
+
+
+def line_plot(df, params=None):
+    if not params:
+        # params = dict(x='BloodPressure', y='Glucose', data=df, ci=None)
+        # params = dict(x='BloodPressure', y='Glucose', data=df, ci=68)
+        params = dict(x='BloodPressure', y='Glucose', data=df, ci=None, lw=2, color='#aa00aa', alpha=0.6)
+
+    sns.lineplot(**params)
+    plt.show()
+
+
+
 
